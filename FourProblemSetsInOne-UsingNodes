@@ -1,0 +1,85 @@
+class Node {
+    public int data;
+    public Node next;
+
+    public Node(int data){
+        this.data = data;
+    }
+}
+
+public class ProblemSet03 {
+    public static Node getMin(Node head) {
+        Node current = head;
+        Node minimum = head;
+        while(current!=null){
+            if(current.data<minimum.data){
+                minimum = current;
+            }
+            current = current.next;
+        }
+        return minimum;
+    }
+
+    public static Node mergeTwoLists(Node head1, Node head2) {
+        Node head = new Node(0);
+        Node curr=head;
+        Node curr1=head1;
+        Node curr2=head2;
+        while(curr1!=null && curr2!=null){
+            if(curr1.data < curr2.data){
+                curr.next = curr1;
+                curr1 = curr1.next;
+            }else{
+                curr.next = curr2;
+                curr2 = curr2.next;
+            }
+            curr=curr.next;
+        }
+        if(curr1!=null){
+            curr.next = curr1;
+        }
+        if(curr2!=null){
+            curr.next = curr2;
+        }
+     
+        return head.next;
+    }
+
+    public static Node reverseList(Node head) {
+		Node previousNode=null;
+		Node nextNode;
+		while(head!=null)
+		{
+			nextNode=head.next;
+			head.next=previousNode;
+			previousNode=head;
+			head=nextNode;
+		}
+		return previousNode;
+    }
+
+    public static boolean isPalindrome(Node head) {
+        Node currNormal = head;
+        String normal = "";
+        String reverse = "";
+        int plus = 0;
+        while(currNormal!=null){
+            plus = currNormal.data;
+            normal = normal + plus;
+            currNormal = currNormal.next;
+        }
+        plus = 0;
+        Node currReverse = reverseList(head);
+        while(currReverse!=null){
+            plus = currReverse.data;
+            reverse = reverse + plus;
+            currReverse = currReverse.next;
+        }
+        return normal.equals(reverse);
+        /* I didn't use this because my reverseList was destructive
+        Node curr = head;
+        Node revHead = reverseList(curr);
+        return head == revHead;
+        */
+    }
+}
